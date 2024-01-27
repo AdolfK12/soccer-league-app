@@ -47,7 +47,7 @@ npm start
 
 The application should now be running on http://localhost:3000.
 
-**Usage**
+## Usage
 
 Navigate to http://localhost:3000 in your web browser to access the Soccer League Manager.
 
@@ -55,6 +55,6 @@ Navigate to http://localhost:3000 in your web browser to access the Soccer Leagu
 - To record a match score, go to the /matches route and fill out the form.
 - To view the league standings, go to the homepage.
 
-**Contributing**
+## Contributing
 
 If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
