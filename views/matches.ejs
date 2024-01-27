@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Match Scores</title>
+  </head>
+  <body>
+    <h1>Match Scores</h1>
+    <ul>
+      <% matches.forEach(function(match) { %>
+      <li>
+        <%= match.team1 %> vs <%= match.team2 %>: <%= match.score1 %> - <%=
+        match.score2 %>
+      </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
