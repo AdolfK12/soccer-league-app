@@ -4,14 +4,133 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Soccer League Application</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+      }
+
+      nav li {
+        display: inline;
+        margin-right: 10px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #0275d8;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #333;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      .nav-button {
+        background-color: #e7f3ff;
+        border: 1px solid #d1e9ff;
+        color: #0275d8;
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 4px;
+        text-align: center;
+        margin: 0 10px;
+        transition: background-color 0.3s, color 0.3s;
+        text-decoration: none;
+      }
+
+      .nav-button:hover,
+      .nav-button:focus {
+        background-color: #c5e0ff;
+        border-color: #a3ccff;
+        color: #0056b3;
+        text-decoration: none;
+      }
+
+      nav ul {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      nav li {
+        display: inline-block;
+        margin: 0 10px;
+      }
+    </style>
   </head>
   <body>
     <h1>Welcome to the Soccer League Application</h1>
     <nav>
       <ul>
-        <li><a href="/clubs">Club List</a></li>
-        <li><a href="/matches">Match Scores</a></li>
+        <li><a href="/clubs" class="nav-button">Club List</a></li>
+        <li><a href="/matches" class="nav-button">Match Scores</a></li>
       </ul>
     </nav>
+    <h2>Klasemen Liga</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Club</th>
+          <th>Played</th>
+          <th>Wins</th>
+          <th>Draws</th>
+          <th>Losses</th>
+          <th>Goals For</th>
+          <th>Goals Against</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% standings.forEach(function(row) { %>
+        <tr>
+          <td><%= row.name %></td>
+          <td><%= row.played %></td>
+          <td><%= row.wins %></td>
+          <td><%= row.draws %></td>
+          <td><%= row.losses %></td>
+          <td><%= row.goals_for %></td>
+          <td><%= row.goals_against %></td>
+          <td><%= row.points %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
   </body>
 </html>

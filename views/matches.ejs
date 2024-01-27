@@ -4,8 +4,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Match Scores</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        max-width: 600px;
+        margin: 20px auto;
+      }
+
+      select,
+      input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #5cb85c;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      button:hover {
+        background-color: #4cae4c;
+      }
+
+      .back-button {
+        display: block;
+        width: max-content;
+        padding: 10px 15px;
+        margin: 10px auto;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        background-color: #0275d8;
+        border-radius: 4px;
+      }
+
+      .back-button:hover {
+        background-color: #025aa5;
+      }
+
+      .matchInput:not(:first-child) {
+        border-top: 2px solid #ddd;
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+
+      .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
+    <a href="/" class="back-button">Back to Home</a>
     <h1>Match Scores</h1>
     <ul>
       <% matches.forEach(function(match) { %>
@@ -15,5 +111,68 @@
       </li>
       <% }); %>
     </ul>
+
+    <h2>Add Match Score</h2>
+
+    <form action="/matches/single" method="POST">
+      <select name="team1" required>
+        <option disabled selected>Choose Club</option>
+        <% clubs.forEach(function(club) { %>
+        <option value="<%= club.id %>"><%= club.name %></option>
+        <% }); %>
+      </select>
+      <select name="team2" required>
+        <option disabled selected>Choose Club</option>
+        <% clubs.forEach(function(club) { %>
+        <option value="<%= club.id %>"><%= club.name %></option>
+        <% }); %>
+      </select>
+      <input type="number" name="score1" placeholder="Team 1 Score" required />
+      <input type="number" name="score2" placeholder="Team 2 Score" required />
+      <button type="submit">Add Score</button>
+    </form>
+
+    <h2>Add Multiple Match Scores</h2>
+    <form id="multiMatchForm" action="/matches/multiple" method="POST">
+      <div id="matchInputs"></div>
+      <button type="button" onclick="addMatchInput()">Add Another Match</button
+      ><br /><br />
+      <button type="submit">Add Scores</button>
+    </form>
+
+    <script>
+      let matchCount = 0;
+
+      function addMatchInput() {
+        const container = document.getElementById("matchInputs");
+        const newMatchInput = document.createElement("div");
+        newMatchInput.classList.add("matchInput");
+        newMatchInput.innerHTML = `
+                <select name="matches[${matchCount}][team1]" required>
+                    <option disabled selected>Choose Club</option>
+                    <% clubs.forEach(function(club) { %>
+                    <option value="<%= club.id %>"><%= club.name %></option>
+                    <% }); %>
+                </select>
+                <select name="matches[${matchCount}][team2]" required>
+                    <option disabled selected>Choose Club</option>
+                    <% clubs.forEach(function(club) { %>
+                    <option value="<%= club.id %>"><%= club.name %></option>
+                    <% }); %>
+                </select>
+                <input type="number" name="matches[${matchCount}][score1]" placeholder="Team 1 Score" required>
+                <input type="number" name="matches[${matchCount}][score2]" placeholder="Team 2 Score" required>
+            `;
+        container.appendChild(newMatchInput);
+        matchCount++;
+      }
+
+      window.onload = function () {
+        addMatchInput();
+        document
+          .getElementById("matchInputs")
+          .appendChild(document.createElement("hr"));
+      };
+    </script>
   </body>
 </html>

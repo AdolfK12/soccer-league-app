@@ -4,13 +4,102 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Club List</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1,
+      h2 {
+        color: #333;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        max-width: 300px;
+        margin-top: 20px;
+      }
+
+      div {
+        margin-bottom: 10px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #5cb85c;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .back-button:hover {
+        background-color: #025aa5;
+      }
+
+      .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
+    <a href="/" class="back-button">Back to Home</a>
     <h1>Club List</h1>
     <ul>
       <% clubs.forEach(function(club) { %>
       <li><%= club.name %> - <%= club.city %></li>
       <% }); %>
     </ul>
+
+    <h2>Add a New Club</h2>
+    <form action="/clubs" method="POST">
+      <div>
+        <label for="name">Club Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required />
+      </div>
+      <button type="submit">Add Club</button>
+    </form>
   </body>
 </html>

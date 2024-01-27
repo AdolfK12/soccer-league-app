@@ -8,6 +8,15 @@ const getAllClubs = async () => {
   }
 };
 
+const addClub = async (name, city) => {
+  try {
+    const sql = "INSERT INTO clubs (name, city) VALUES (?, ?)";
+    await db.query(sql, [name, city]);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getAllMatches = async () => {
   try {
     return await db.query(`
@@ -21,7 +30,61 @@ const getAllMatches = async () => {
   }
 };
 
+const addSingleMatch = async (team1, team2, score1, score2) => {
+  try {
+    const date = new Date().toISOString().split("T")[0];
+    const sql =
+      "INSERT INTO matches (club1_id, club2_id, score1, score2, date) VALUES (?, ?, ?, ?, ?)";
+    await db.query(sql, [team1, team2, score1, score2, date]);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const addMultipleMatches = async (matches) => {
+  try {
+    const sql =
+      "INSERT INTO matches (club1_id, club2_id, score1, score2, date) VALUES (?, ?, ?, ?, ?)";
+    const date = new Date().toISOString().split("T")[0];
+    for (let match of matches) {
+      await db.query(sql, [
+        match.team1,
+        match.team2,
+        match.score1,
+        match.score2,
+        date,
+      ]);
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getStandings = async () => {
+  try {
+    return await db.query(
+      "SELECT * FROM standings ORDER BY points DESC, goals_for DESC, goals_against ASC"
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+const matchExists = async (team1, team2) => {
+  const sql = `
+    SELECT * FROM matches
+    WHERE (club1_id = ? AND club2_id = ?) OR (club1_id = ? AND club2_id = ?)
+  `;
+  const matches = await db.query(sql, [team1, team2, team2, team1]);
+  return matches.length > 0;
+};
+
 module.exports = {
   getAllClubs,
+  addClub,
   getAllMatches,
+  addSingleMatch,
+  addMultipleMatches,
+  getStandings,
+  matchExists,
 };
