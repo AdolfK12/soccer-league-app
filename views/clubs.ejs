@@ -90,6 +90,9 @@
     </ul>
 
     <h2>Add a New Club</h2>
+    <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+    <p style="color: red; text-align: center"><%= errorMessage %></p>
+    <% } %>
     <form action="/clubs" method="POST">
       <div>
         <label for="name">Club Name:</label>

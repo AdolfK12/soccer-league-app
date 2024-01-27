@@ -113,16 +113,18 @@
     </ul>
 
     <h2>Add Match Score</h2>
-
+    <% if (errorMessage) { %>
+    <p style="color: red; text-align: center"><%= errorMessage %></p>
+    <% } %>
     <form action="/matches/single" method="POST">
       <select name="team1" required>
-        <option disabled selected>Choose Club</option>
+        <option value="" disabled selected>Choose Club</option>
         <% clubs.forEach(function(club) { %>
         <option value="<%= club.id %>"><%= club.name %></option>
         <% }); %>
       </select>
       <select name="team2" required>
-        <option disabled selected>Choose Club</option>
+        <option value="" disabled selected>Choose Club</option>
         <% clubs.forEach(function(club) { %>
         <option value="<%= club.id %>"><%= club.name %></option>
         <% }); %>
@@ -133,6 +135,9 @@
     </form>
 
     <h2>Add Multiple Match Scores</h2>
+    <% if (errorMessage) { %>
+    <p style="color: red; text-align: center"><%= errorMessage %></p>
+    <% } %>
     <form id="multiMatchForm" action="/matches/multiple" method="POST">
       <div id="matchInputs"></div>
       <button type="button" onclick="addMatchInput()">Add Another Match</button
